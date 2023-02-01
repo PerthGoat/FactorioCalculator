@@ -1,23 +1,28 @@
 var GlobalRecipeList = {
-'Stone Furnace':
+'Stone furnace':
 {
-    'Iron Plate': 
+    'Iron plate': 
     {
-        'Iron Ore': 1,
+        'Iron ore': 1,
         'Coal': 0.0225,
         'ProductionSeconds': 1/0.3125
     },
-    'Copper Plate':
+    'Copper plate':
     {
-        'Copper Ore': 1,
+        'Copper ore': 1,
         'Coal': 0.0225,
         'ProductionSeconds': 1/0.3125
     },
-    'Steel Plate':
+    'Steel plate':
     {
-        'Iron Plate': 5,
+        'Iron plate': 5,
         'Coal': 0.0225,
         'ProductionSeconds': 1/0.0625
+    },
+    'Stone brick': 
+    {
+        'Stone': 5,
+        'ProductionSeconds': 0.5
     }
 },
 'Chemical plant': 
@@ -37,9 +42,9 @@ var GlobalRecipeList = {
         'ProductionSeconds': 5
     }
 },
-'Mining Drill': 
+'Mining drill': 
 {
-    'Iron Ore':
+    'Iron ore':
     {
         'ProductionSeconds': 2
     },
@@ -47,65 +52,69 @@ var GlobalRecipeList = {
     {
         'ProductionSeconds': 2
     },
-    'Copper Ore':
+    'Copper ore':
+    {
+        'ProductionSeconds': 2
+    },
+    'Stone': 
     {
         'ProductionSeconds': 2
     }
 },
-'Assembling Machine': // 50% crafting speed
+'Assembling machine': // 50% crafting speed
 {
     'Iron gear wheel': 
     {
-        'Iron Plate': 2,
+        'Iron plate': 2,
         'ProductionSeconds': 0.5
     },
-    'Gun Turret':
+    'Gun turret':
     {
-        'Copper Plate': 10,
+        'Copper plate': 10,
         'Iron gear wheel': 10,
-        'Iron Plate': 20,
+        'Iron plate': 20,
         'ProductionSeconds': 8
     },
     'Firearm magazine':
     {
-        'Iron Plate': 4,
+        'Iron plate': 4,
         'ProductionSeconds': 1
     },
     'Piercing rounds magazine':
     {
-        'Copper Plate': 5,
+        'Copper plate': 5,
         'Firearm magazine': 1,
-        'Steel Plate': 1,
+        'Steel plate': 1,
         'ProductionSeconds': 3
     },
     'Automation science pack':
     {
-        'Copper Plate': 1,
+        'Copper plate': 1,
         'Iron gear wheel': 1,
         'ProductionSeconds': 5
     },
     'Transport belt':
     {
         'Iron gear wheel': 1,
-        'Iron Plate': 1,
+        'Iron plate': 1,
         'ProductionSeconds': 0.5/2
     },
     'Electronic circuit':
     {
         'Copper cable': 3,
-        'Iron Plate': 1,
+        'Iron plate': 1,
         'ProductionSeconds': 0.5
     },
     'Copper cable': 
     {
-        'Copper Plate': 1,
+        'Copper plate': 1,
         'ProductionSeconds': 0.5/2
     },
     'Inserter':
     {
         'Electronic circuit': 1,
         'Iron gear wheel': 1,
-        'Iron Plate': 1,
+        'Iron plate': 1,
         'ProductionSeconds': 0.5
     },
     'Logistic science pack':
@@ -165,6 +174,11 @@ var GlobalRecipeList = {
         'Iron plate': 3,
         'Stone furnace': 1,
         'ProductionSeconds': 2
+    },
+    'Wall': 
+    {
+        'Stone brick': 5,
+        'ProductionSeconds': 0.5
     },
 
 

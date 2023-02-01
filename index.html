@@ -69,51 +69,65 @@
 		.assemblyitem_mapping[disabled] option {
 			color:#000;
 		}
+		.fullUI {
+			display:flex;
+			height:100%;
+		}
+		.errorcontainer {
+			color:red;
+			width:400px;
+			max-height:200px;
+			overflow-y:scroll;
+			display:inline-block;
+		}
 	</style>
 </head>
 <body>
-	<div class="factoriocalculatorUI">
-		<select size="12" class="factorioitemview">
-		</select>
-		<br>
-		<select class="factorioselectitem">
-		</select>
-		<br>
-		<button onclick="mainapp.AddItemToList()">Add Item</button>
-		<button onclick="mainapp.RemoveItemFromList()">Remove Item</button>
-		<button onclick="mainapp.ClearList()">Clear</button>
-		<button onclick="mainapp.Calculate()">Calculate</button>
-		<br>
-		<label for=".base64itemliststring">Base64 String</label>
-		<button onclick="mainapp.SelectBase64String()">Select All</button>
-		<button onclick="mainapp.LoadSavedB64()">Load</button>
-		<br>
-		<input type="text" class="base64itemliststring" />
+	<div class="fullUI">
+		<div class="factoriocalculatorUI">
+			<select size="12" class="factorioitemview">
+			</select>
+			<br>
+			<select class="factorioselectitem">
+			</select>
+			<br>
+			<button onclick="mainapp.AddItemToList()">Add Item</button>
+			<button onclick="mainapp.RemoveItemFromList()">Remove Item</button>
+			<button onclick="mainapp.ClearList()">Clear</button>
+			<button onclick="mainapp.Calculate()">Calculate</button>
+			<br>
+			<label for=".base64itemliststring">Base64 String</label>
+			<button onclick="mainapp.SelectBase64String()">Select All</button>
+			<button onclick="mainapp.LoadSavedB64()">Load</button>
+			<br>
+			<input type="text" class="base64itemliststring" />
+		</div>
+		<div class="factoriocalculatorassemblymappings">
+			<select size="12" class="assemblyitem">
+			</select>
+			<select size="12" class="assemblyitem_mapping" disabled>
+			</select>
+			<br>
+			<select class="assemblyitems">
+			</select>
+			<select class="assemblymachinevariants">
+			</select>
+			<br>
+			<button onclick="mainapp.UpdateMapping()">Update Mapping</button>
+		</div>
+		<div class="factoriocalculatorresults">
+			<table class="factorioresultstable">
+				<thead>
+					<th>Machine Name</th>
+					<th>Item Name</th>
+					<th>Machine Qty.</th>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<div class="factoriocalculatorassemblymappings">
-		<select size="12" class="assemblyitem">
-		</select>
-		<select size="12" class="assemblyitem_mapping" disabled>
-		</select>
-		<br>
-		<select class="assemblyitems">
-		</select>
-		<select class="assemblymachinevariants">
-		</select>
-		<br>
-		<button onclick="mainapp.UpdateMapping()">Update Mapping</button>
-	</div>
-	<div class="factoriocalculatorresults">
-		<table class="factorioresultstable">
-			<thead>
-				<th>Machine Name</th>
-				<th>Item Name</th>
-				<th>Machine Qty.</th>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-	</div>
+	<pre class="errorcontainer"></pre>
 	<script type='text/javascript' src='js/compression.js'></script>
 	<script type='text/javascript' src='js/recipes.js'></script>
 	<script type='text/javascript' src='js/factoriocalc.js'></script>

@@ -10,10 +10,16 @@ class CraftingNode {
 }
 
 class FactorioCalculator {
-    constructor() {
+    constructor(error_container) {
+        this.error_container = error_container;
         // format is:
         // machine name => machine recipe dict => recipe item => recipe resource requirement dict, containing items needed per second, and production per second
         this.recipes = GlobalRecipeList;
+    }
+
+    PrintError(err) {
+        this.error_container.innerHTML += err + "\n";
+        this.error_container.scrollTop = this.error_container.scrollHeight;
     }
 
     TotalUpRecipeTreeMachines(recipetreenode) {
@@ -69,6 +75,11 @@ class FactorioCalculator {
             }
         }
 
+        if (recipe == '') {
+            this.PrintError("Couldn't find recipe for " + goalitem);
+            return;
+        }
+        
         let recipecalculationnode = new CraftingNode({
                                                     itemname: goalitem,
                                                     itemqtys: Object.keys(this.recipes[recipe][goalitem]).filter((x) => x != 'ProductionSeconds').map(x => [x, this.recipes[recipe][goalitem][x]]),
@@ -95,7 +106,7 @@ class FactorioCalculator {
 }
 
 class MainApplication {
-    constructor(itemlistbox, itemcombobox, factorioassemblymappings, base64stringbox, assemblymachinevariants, assemblyitem, assemblyitem_mapping, results_table) {
+    constructor(itemlistbox, itemcombobox, factorioassemblymappings, base64stringbox, assemblymachinevariants, assemblyitem, assemblyitem_mapping, results_table, error_container) {
         this.itemlistbox = itemlistbox;
         this.itemcombobox = itemcombobox;
         this.factorioassemblymappings = factorioassemblymappings;
@@ -104,6 +115,7 @@ class MainApplication {
         this.assemblyitem = assemblyitem;
         this.assemblyitem_mapping = assemblyitem_mapping;
         this.results_table = results_table;
+        this.error_container = error_container;
 
         this.assemblyitem.addEventListener('change', () => {
             let selected_item_text = this.assemblyitem.options[this.assemblyitem.selectedIndex].value;
@@ -144,9 +156,13 @@ class MainApplication {
             }
         });
 
-        this.factoriorecipecalc = new FactorioCalculator();
+        this.factoriorecipecalc = new FactorioCalculator(error_container);
 
         this.DoInitialPopulate();
+    }
+
+    PrintError(err) {
+        this.error_container.innerHTML += err + "\n";
     }
 
     DoInitialPopulate() {
@@ -160,12 +176,12 @@ class MainApplication {
                     newselectitem.text = item;
                     this.itemcombobox.appendChild(newselectitem);
 
-                    if (recipe == 'Assembling Machine') {
+                    if (recipe == 'Assembling machine') {
                         this.factorioassemblymappings.appendChild(newselectitem.cloneNode(true));
                         this.assemblyitem.appendChild(newselectitem.cloneNode(true));
                         
                         let newasm1 = document.createElement('option');
-                        newasm1.text = 'Assembling Machine 1';
+                        newasm1.text = 'Assembling machine 1';
                         this.assemblyitem_mapping.appendChild(newasm1);
                     }
                 }
@@ -173,7 +189,7 @@ class MainApplication {
                 if (item == 'MachineVariantMultiplier') {
                     for (let variant of Object.keys(recipes[recipe][item])) {
                         let newvariantitem = document.createElement('option');
-                        newvariantitem.text = 'Assembling Machine ' + variant;
+                        newvariantitem.text = 'Assembling machine ' + variant;
                         this.assemblymachinevariants.appendChild(newvariantitem);
                     }
                 }
@@ -221,7 +237,7 @@ class MainApplication {
         // assembly machine mappings
         let variant_mappings = {};
         for(let i = 0;i < this.assemblyitem.options.length;i++) {
-            variant_mappings[this.assemblyitem.options[i].value] = parseInt(this.assemblyitem_mapping.options[i].value.replace('Assembling Machine ', ''));
+            variant_mappings[this.assemblyitem.options[i].value] = parseInt(this.assemblyitem_mapping.options[i].value.replace('Assembling machine ', ''));
         }
         // get list of things to craft
         let craft_list = Array.from(this.itemlistbox.options).map((opt) => opt.value);
@@ -347,7 +363,9 @@ function MainFunc(e) {
 
     let results_table = document.getElementsByClassName('factorioresultstable')[0].getElementsByTagName('tbody')[0];
 
-    mainapp = new MainApplication(itemlistbox, itemcombobox, factorioassemblymappings, base64stringbox, assemblymachinevariants, assemblyitem, assemblyitem_mapping, results_table);
+    let error_container = document.getElementsByClassName('errorcontainer')[0];
+
+    mainapp = new MainApplication(itemlistbox, itemcombobox, factorioassemblymappings, base64stringbox, assemblymachinevariants, assemblyitem, assemblyitem_mapping, results_table, error_container);
 }
 
 MainFunc();
