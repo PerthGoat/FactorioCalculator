@@ -229,8 +229,8 @@ class MainApplication {
                 c1.nextnodes.push(c2.nextnodes[node2]);
             }
         }
-
-        c1.neededmachines += c2.neededmachines;
+        c1.nextnodes.push(c2)
+        //c1.neededmachines += c2.neededmachines;
     }
     // actual calculation happens here
     Calculate() {
